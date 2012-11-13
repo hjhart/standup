@@ -8,7 +8,7 @@ gem 'activerecord-jdbcpostgresql-adapter'
 gem 'jdbc-postgres'
 
 gem 'devise'
-
+gem 'mailman'
 
 # Gems used only for assets and not required
 # in production environments by default.
