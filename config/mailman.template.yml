@@ -1,0 +1,6 @@
+---
+username: youremailhere@gmail.com
+password: yourpasshere
+server: pop.gmail.com
+port: 995
+ssl: true
