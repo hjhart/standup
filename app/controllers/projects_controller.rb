@@ -1,6 +1,16 @@
 class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
+  before_filter :add_password
+
+  def add_password
+    if(params[:project] && params[:project][:users_attributes])
+      params[:project][:users_attributes].each { |key, value|
+        value["password"] = Devise.friendly_token.first(6)
+      }
+    end
+  end
+
   def index
     @projects = Project.all
 
@@ -40,13 +50,6 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    if(params[:project] && params[:project][:users_attributes])
-      ap params[:project][:users_attributes].each { |key, value|
-        puts "#key = #{key}, #value = #{value}"
-        value["password"] = Devise.friendly_token.first(6)
-      }
-    end
-
     @project = Project.new(params[:project])
 
     respond_to do |format|

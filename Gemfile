@@ -7,6 +7,7 @@ gem 'activerecord-jdbcpostgresql-adapter'
 gem 'jdbc-postgres'
 
 gem 'devise'
+gem 'devise_invitable'
 gem 'mailman'
 gem 'awesome_print'
 
