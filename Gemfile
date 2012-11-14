@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem 'mailman'
 
 gem 'activerecord-jdbc-adapter'
 gem 'activerecord-jdbcpostgresql-adapter'
@@ -9,7 +8,6 @@ gem 'jdbc-postgres'
 
 gem 'devise'
 gem 'mailman'
-
 gem 'awesome_print'
 
 # Gems used only for assets and not required

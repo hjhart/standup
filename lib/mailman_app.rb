@@ -22,21 +22,13 @@ Mailman.config.pop3 = {
     :ssl => config["ssl"]
 }
 
-Mailman.config.poll_interval = 0
+Mailman.config.poll_interval = 2
 
 Mailman::Application.run do
   default do
     begin
-      Mailman.logger.debug "Received email - checking the default email client stuff."
       user = User.find_by_email(message.from)
-      if (user.nil?)
-        Mailman.logger.debug "You found some email, but we couldn't find a user!"
-        Mailman.logger.error("We could not find the user who sent us the email: #{message.from}")
-      else
-        Mailman.logger.debug "We found some email, and we could also find a user!"
-        Mailman.logger.debug message
-        DailyReport.create(:content => message.body, :user => user)
-      end
+      DailyReportHandler.receive(message)
     rescue Exception => e
       Mailman.logger.error "Exception occurred while receiving message:\n#{message}"
       Mailman.logger.error [e, *e.backtrace].join("\n")
