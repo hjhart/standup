@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @project.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @project.description %>
+</p>
+
+<p>
+  <b>Users:</b>
+<% unless(@project.users.empty?) %>
+<ul>
+    <% @project.users.each do |user| %>
+        <li><%= user.email %> - <%= link_to "Delete", project_user_path(@project, user), :method => :delete, :prompt => "bleck!" %></li>
+    <% end %>
+</ul>
+<% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
