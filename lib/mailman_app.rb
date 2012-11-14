@@ -22,7 +22,7 @@ Mailman.config.pop3 = {
     :ssl => config["ssl"]
 }
 
-Mailman.config.poll_interval = 2
+Mailman.config.poll_interval = 0
 
 Mailman::Application.run do
   default do
