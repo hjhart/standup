@@ -14,4 +14,13 @@ FactoryGirl.define do
   factory :daily_report do
     association :user, factory: :user
   end
+
+  factory :project do
+    name { Faker::Lorem.words.join(" ") }
+    description { Faker::Lorem.sentence }
+
+    factory :invalid_project do
+      name nil
+    end
+  end
 end

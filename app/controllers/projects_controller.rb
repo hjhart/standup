@@ -3,14 +3,6 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   before_filter :add_password
 
-  def add_password
-    if(params[:project] && params[:project][:users_attributes])
-      params[:project][:users_attributes].each { |key, value|
-        value["password"] = Devise.friendly_token.first(6)
-      }
-    end
-  end
-
   def index
     @projects = Project.all
 
@@ -90,4 +82,15 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  protected
+
+  def add_password
+    if(params[:project] && params[:project][:users_attributes])
+      params[:project][:users_attributes].each { |key, value|
+        value["password"] = Devise.friendly_token.first(6)
+      }
+    end
+  end
+
 end
