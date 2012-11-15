@@ -11,18 +11,29 @@ describe User do
     user.last_name.should == "Doe"
   end
 
-  context "#yesterdays_daily_tasks" do
-    xit "should show yesterdays daily_tasks" do
+  context "#yesterdays_tasks" do
+    it "should show yesterdays tasks" do
+      user = create(:user)
+      todays_report = create(:daily_report, :created_at => Date.today, :user => user)
+      not_yesterdays_report = create(:daily_report, :created_at => 2.days.ago, :user => user)
+      dt1 = create(:daily_task, :daily_report => todays_report)
+      dt2 = create(:daily_task, :daily_report => todays_report)
+      dt3 = create(:daily_task, :daily_report => not_yesterdays_report)
 
-      yesterdays_report = build(:daily_report, :created_at => Date.today)
-      yesterdays_report = build(:daily_report, :created_at => 2.days.ago)
-      dt1 = build(:daily_task, :daily_report => yesterdays_report)
-      dt2 = build(:daily_task, :daily_report => yesterdays_report)
-      dt3 = build(:daily_task, :daily_report => yesterdays_report)
+      user.yesterdays_tasks.should eq [dt1, dt2]
+      user.yesterdays_tasks.should_not include dt3
+    end
+  end
 
-      user = yesterdays_report.user
+  context "#display_name" do
+    it "should show the name method if it exists" do
+      user = build(:user, :name => "James Hart")
+      user.display_name.should eq "James Hart"
+    end
 
-      user.yesterdays_daily_tasks.should eq [d1, d2]
+    it "should show the name method if it exists" do
+      user = build(:user, :email => "chester@example.com", :first_name => nil, :last_name => nil)
+      user.display_name.should eq "chester@example.com"
     end
   end
 end

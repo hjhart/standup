@@ -1,0 +1,12 @@
+Hi there <%= @user.display_name %>,
+======================
+
+Here's what people did yesterday:
+
+<%= @project.users.each do |user| %>
+<%= user.display_name %>:
+-------------------
+<%= user.yesterdays_tasks.each do |task| %>
+    <%= task.task %>
+<% end %>
+<% end %>

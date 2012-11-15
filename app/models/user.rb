@@ -18,16 +18,30 @@ class User < ActiveRecord::Base
     self.invite!
   end
 
+  def name
+    if(self.first_name.nil?)
+      return nil
+    elsif self.last_name.nil?
+      return self.first_name
+    else
+      [self.first_name, self.last_name].join(" ")
+    end
+  end
+
   def name=(name)
     self.first_name, self.last_name = name.split(" ")
     name
   end
 
-  def yesterdays_daily_tasks
-    daily_report = self.daily_reports.select do |daily_report|
-      (1.day.ago..Date.today).cover? daily_report.created_at
-    end
+  def yesterdays_tasks
+    self.daily_reports.yesterdays.first.daily_tasks
+  end
 
-    daily_report.daily_tasks
+  def display_name
+    if(self.name.nil?)
+      self.email
+    else
+      self.name
+    end
   end
 end

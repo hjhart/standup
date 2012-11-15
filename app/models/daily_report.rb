@@ -6,6 +6,8 @@ class DailyReport < ActiveRecord::Base
 
   before_save :create_individual_tasks
 
+  scope :yesterdays, :conditions => ["created_at <= ? AND created_at >= ?", Time.current, (Time.current - 24.hours)], :limit => 1
+
   validates_presence_of :user
 
   def create_individual_tasks

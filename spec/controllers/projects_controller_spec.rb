@@ -28,4 +28,13 @@ describe ProjectsController do
       }.to_not change(Project, :count)
     end
   end
+
+  context "DELETE :destroy" do
+    it "should delete a record!" do
+      project = create(:project)
+      expect {
+        delete :destroy, id: project
+      }.to change(Project, :count).by(-1)
+    end
+  end
 end

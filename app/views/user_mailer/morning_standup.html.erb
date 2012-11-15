@@ -1,0 +1,12 @@
+<h1>Hi there <%= @user.display_name %>,</h1>
+
+Here's what people did yesterday:
+
+<% @project.users.each do |user| %>
+<h2><%= user.display_name %></h2>
+<ul>
+  <% user.yesterdays_tasks.each do |task| %>
+      <li><%= task.task %></li>
+  <% end %>
+</ul>
+<% end %>
