@@ -27,7 +27,6 @@ Mailman.config.poll_interval = 0
 Mailman::Application.run do
   default do
     begin
-      user = User.find_by_email(message.from)
       DailyReportHandler.receive(message)
     rescue Exception => e
       Mailman.logger.error "Exception occurred while receiving message:\n#{message}"

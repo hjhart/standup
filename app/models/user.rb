@@ -17,4 +17,17 @@ class User < ActiveRecord::Base
   def send_welcome_email
     self.invite!
   end
+
+  def name=(name)
+    self.first_name, self.last_name = name.split(" ")
+    name
+  end
+
+  def yesterdays_daily_tasks
+    daily_report = self.daily_reports.select do |daily_report|
+      (1.day.ago..Date.today).cover? daily_report.created_at
+    end
+
+    daily_report.daily_tasks
+  end
 end
