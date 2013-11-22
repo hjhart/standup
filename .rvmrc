@@ -1,1 +1,1 @@
-rvm use jruby-1.7.0@standup --create
+rvm use ruby-1.9.3@standup --create
